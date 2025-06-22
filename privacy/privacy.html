@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Peawell – Datenschutz</title>
+    <link rel="stylesheet" href="../style.css" />
+    <meta name="theme-color" content="#ffffff" />
+</head>
+<body>
+    <header style="position: relative;">
+        <div id="lang-switcher" style="position:absolute;top:1.5rem;right:2rem;z-index:10;">
+            <label for="lang-select" class="visually-hidden">Sprache wählen / Select language</label>
+            <select id="lang-select" aria-label="Sprache wählen / Select language" onchange="setLanguage(this.value)">
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="en">🇬🇧 English</option>
+            </select>
+        </div>
+        <h1 id="privacy-title">Datenschutz</h1>
+        <p id="privacy-subtitle">Informationen zum Datenschutz der Peawell App</p>
+    </header>
+    <main>
+        <section id="privacy-info">
+            <h2 id="privacy-info-title">Ihre Daten sind sicher</h2>
+            <p id="privacy-info-text">
+                Die Peawell App erhebt, speichert oder verarbeitet keinerlei personenbezogene Daten.<br>
+                Es werden keine Daten an uns oder Dritte übermittelt.<br><br>
+                Lediglich die von Apple (Xcode, TestFlight, App Store) oder GitHub (bei Hosting der App) erhobenen Daten unterliegen deren jeweiligen Datenschutzbestimmungen.<br><br>
+                Für weitere Informationen konsultieren Sie bitte die Datenschutzrichtlinien von Apple und GitHub.
+            </p>
+        </section>
+    </main>
+    <footer>
+        <section id="impressum">
+            <h2 id="impressum-title">Impressum</h2>
+            <p id="impressum-text">
+                Dennis Tobias Atkins<br>
+                Hohenstädter Straße 32<br>
+                91230 Happurg, Germany<br>
+                E-Mail: d.atkins &lt;at&gt; bytebench.tech<br>
+                Phone: +49 157 73816417
+            </p>
+        </section>
+    </footer>
+    <script>
+    const translations = {
+      de: {
+        'privacy-title': 'Datenschutz',
+        'privacy-subtitle': 'Informationen zum Datenschutz der Peawell App',
+        'privacy-info-title': 'Ihre Daten sind sicher',
+        'privacy-info-text': 'Die Peawell App erhebt, speichert oder verarbeitet keinerlei personenbezogene Daten.<br>Es werden keine Daten an uns oder Dritte übermittelt.<br><br>Lediglich die von Apple (Xcode, TestFlight, App Store) oder GitHub (bei Hosting der App) erhobenen Daten unterliegen deren jeweiligen Datenschutzbestimmungen.<br><br>Für weitere Informationen konsultieren Sie bitte die Datenschutzrichtlinien von Apple und GitHub.',
+        'impressum-title': 'Impressum',
+        'impressum-text': 'Dennis Tobias Atkins<br>Hohenstädter Straße 32<br>91230 Happurg, Germany<br>E-Mail: d.atkins &lt;at&gt; bytebench.tech<br>Phone: +49 157 73816417'
+      },
+      en: {
+        'privacy-title': 'Privacy Policy',
+        'privacy-subtitle': 'Information about the privacy policy of the Peawell app',
+        'privacy-info-title': 'Your data is safe',
+        'privacy-info-text': 'The Peawell app does not collect, store, or process any personal data.<br>No data is transmitted to us or third parties.<br><br>Only data collected by Apple (Xcode, TestFlight, App Store) or GitHub (when hosting the app) is subject to their respective privacy policies.<br><br>For more information, please consult the privacy policies of Apple and GitHub.',
+        'impressum-title': 'Imprint',
+        'impressum-text': 'Dennis Tobias Atkins<br>Hohenstädter Straße 32<br>91230 Happurg, Germany<br>E-Mail: d.atkins &lt;at&gt; bytebench.tech<br>Phone: +49 157 73816417'
+      }
+    };
+    function setLanguage(lang) {
+      for (const key in translations[lang]) {
+        const el = document.getElementById(key);
+        if (el) {
+          if (key.endsWith('-text')) {
+            el.innerHTML = translations[lang][key];
+          } else {
+            el.textContent = translations[lang][key];
+          }
+        }
+      }
+      document.getElementById('lang-select').value = lang;
+    }
+    // Set default language based on browser or fallback to German
+    const userLang = (navigator.languages ? navigator.languages : [navigator.language || navigator.userLanguage]).some(l => l.startsWith('de')) ? 'de' : 'en';
+    setLanguage(userLang);
+    </script>
+</body>
+</html>
