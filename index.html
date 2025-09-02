@@ -1,42 +1,84 @@
 <!doctype html>
 <html lang="de">
-    <head>
-        <meta charset="UTF-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-        />
-        <title>Peawell</title>
-        <link rel="stylesheet" href="style.css" />
-        <meta name="theme-color" id="theme-color-meta" content="#ffffff" />
-    </head>
-    <body>
-        <header style="position: relative">
-            <div
-                id="lang-switcher"
-                style="
-                    position: absolute;
-                    top: 1.5rem;
-                    right: 2rem;
-                    z-index: 10;
-                "
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Peawell</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="theme-color" id="theme-color-meta" content="#ffffff" />
+    <style>
+        /* Responsive Flexbox Layout for Preview and Features */
+        .sections-container {
+            display: flex;
+            flex-direction: row;        /* side by side on desktop */
+            gap: 2rem;
+            align-items: flex-start;
+            margin-top: 2rem;
+        }
+        @media (max-width: 800px) {
+            .sections-container {
+                flex-direction: column; /* stack on mobile/tablet */
+                gap: 1.5rem;
+            }
+        }
+
+        /* Optional: Make sections fill available space equally */
+        #preview, #features {
+            flex: 1 1 0;
+        }
+        /* Make carousel buttons visible */
+        .carousel {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .carousel img {
+            max-width: 250px;
+            height: auto;
+            border-radius: 1rem;
+        }
+        header {
+            padding-bottom: 1rem;
+        }
+        ul {
+            margin-top: 1rem;
+        }
+        @media (max-width: 600px) {
+            .carousel img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header style="position: relative">
+        <div
+            id="lang-switcher"
+            style="
+                position: absolute;
+                top: 1.5rem;
+                right: 2rem;
+                z-index: 10;
+            "
+        >
+            <label for="lang-select" class="visually-hidden"
+                >Sprache wählen / Select language</label
             >
-                <label for="lang-select" class="visually-hidden"
-                    >Sprache wählen / Select language</label
-                >
-                <select
-                    id="lang-select"
-                    aria-label="Sprache wählen / Select language"
-                    onchange="setLanguage(this.value)"
-                >
-                    <option value="de">🇩🇪 Deutsch</option>
-                    <option value="en">🇬🇧 English</option>
-                </select>
-            </div>
-            <h1 id="title">Peawell</h1>
-            <p id="subtitle">Die exklusive App für den Apple App Store</p>
-        </header>
-        <main>
+            <select
+                id="lang-select"
+                aria-label="Sprache wählen / Select language"
+                onchange="setLanguage(this.value)"
+            >
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="en">🇬🇧 English</option>
+            </select>
+        </div>
+        <h1 id="title">Peawell</h1>
+        <p id="subtitle">Die exklusive App für den Apple App Store</p>
+    </header>
+    <main>
+        <!-- Start responsive sections container -->
+        <div class="sections-container">
             <section id="preview" class="features-like">
                 <h2 id="preview-title">App Vorschau</h2>
                 <div id="preview-carousel" class="carousel">
@@ -63,139 +105,141 @@
                     <li id="feature5">Datenschutzfreundlich</li>
                 </ul>
             </section>
-        </main>
-        <footer>
-            <section id="impressum">
-                <h2 id="impressum-title">Impressum</h2>
-                <p id="impressum-text">
-                    Dennis Tobias Atkins<br />
-                    Hohenstädter Straße 32<br />
-                    91230 Happurg, Germany<br />
-                    E-Mail: d.atkins &lt;at&gt; bytebench.tech<br />
-                    Phone: +49 157 73816417
-                </p>
-                <p style="margin-top: 1.5em">
-                    <a
-                        href="privacy/index.html"
-                        style="color: #4f46e5; text-decoration: underline"
-                        >Datenschutz / Privacy Policy</a
-                    >
-                </p>
-            </section>
-        </footer>
-        <script>
-            const translations = {
-                de: {
-                    title: "Peawell",
-                    subtitle: "Mentale Gesundheit für alle",
-                    "preview-title": "App Vorschau",
-                    "features-title": "Features",
-                    feature1: "iOS natives Design",
-                    feature2: "Mit SwiftUI entwickelt",
-                    feature3: "Kostenlose Nutzung",
-                    feature4: "Open Source",
-                    feature5: "Datenschutzfreundlich",
-                    "impressum-title": "Impressum",
-                    "impressum-text":
-                        "Dennis Tobias Atkins<br>Hohenstädter Straße 32<br>91230 Happurg, Germany<br>E-Mail: d.atkins &lt;at&gt; bytebench.tech<br>Phone: +49 157 73816417",
-                },
-                en: {
-                    title: "Peawell",
-                    subtitle: "Mental health for everyone",
-                    "preview-title": "App Preview",
-                    "features-title": "Features",
-                    feature1: "iOS native design",
-                    feature2: "Built with SwiftUI",
-                    feature3: "Use at no cost",
-                    feature4: "Open Source",
-                    feature5: "Privacy-friendly",
-                    "impressum-title": "Imprint",
-                    "impressum-text":
-                        "Dennis Tobias Atkins<br>Hohenstädter Straße 32<br>91230 Happurg, Germany<br>E-Mail: d.atkins &lt;at&gt; bytebench.tech<br>Phone: +49 157 73816417",
-                },
-            };
-            function setLanguage(lang) {
-                for (const key in translations[lang]) {
-                    const el = document.getElementById(key);
-                    if (el) {
-                        if (key === "impressum-text") {
-                            el.innerHTML = translations[lang][key];
-                        } else {
-                            el.textContent = translations[lang][key];
-                        }
+        </div>
+        <!-- End responsive sections container -->
+    </main>
+    <footer>
+        <section id="impressum">
+            <h2 id="impressum-title">Impressum</h2>
+            <p id="impressum-text">
+                Dennis Tobias Atkins<br />
+                Hohenstädter Straße 32<br />
+                91230 Happurg, Germany<br />
+                E-Mail: d.atkins &lt;at&gt; bytebench.tech<br />
+                Phone: +49 157 73816417
+            </p>
+            <p style="margin-top: 1.5em">
+                <a
+                    href="privacy/index.html"
+                    style="color: #4f46e5; text-decoration: underline"
+                    >Datenschutz / Privacy Policy</a
+                >
+            </p>
+        </section>
+    </footer>
+    <script>
+        const translations = {
+            de: {
+                title: "Peawell",
+                subtitle: "Mentale Gesundheit für alle",
+                "preview-title": "App Vorschau",
+                "features-title": "Features",
+                feature1: "iOS natives Design",
+                feature2: "Mit SwiftUI entwickelt",
+                feature3: "Kostenlose Nutzung",
+                feature4: "Open Source",
+                feature5: "Datenschutzfreundlich",
+                "impressum-title": "Impressum",
+                "impressum-text":
+                    "Dennis Tobias Atkins<br>Hohenstädter Straße 32<br>91230 Happurg, Germany<br>E-Mail: d.atkins &lt;at&gt; bytebench.tech<br>Phone: +49 157 73816417",
+            },
+            en: {
+                title: "Peawell",
+                subtitle: "Mental health for everyone",
+                "preview-title": "App Preview",
+                "features-title": "Features",
+                feature1: "iOS native design",
+                feature2: "Built with SwiftUI",
+                feature3: "Use at no cost",
+                feature4: "Open Source",
+                feature5: "Privacy-friendly",
+                "impressum-title": "Imprint",
+                "impressum-text":
+                    "Dennis Tobias Atkins<br>Hohenstädter Straße 32<br>91230 Happurg, Germany<br>E-Mail: d.atkins &lt;at&gt; bytebench.tech<br>Phone: +49 157 73816417",
+            },
+        };
+        function setLanguage(lang) {
+            for (const key in translations[lang]) {
+                const el = document.getElementById(key);
+                if (el) {
+                    if (key === "impressum-text") {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
                     }
                 }
-                document.getElementById("lang-select").value = lang;
             }
-            // Set default language based on browser or fallback to German
-            const userLang = (
-                navigator.language || navigator.userLanguage
-            ).startsWith("de")
-                ? "de"
-                : "en";
-            setLanguage(userLang);
+            document.getElementById("lang-select").value = lang;
+        }
+        // Set default language based on browser or fallback to German
+        const userLang = (
+            navigator.language || navigator.userLanguage
+        ).startsWith("de")
+            ? "de"
+            : "en";
+        setLanguage(userLang);
 
-            function updateThemeColor() {
-                // Get computed header background color
-                const header = document.querySelector("header");
-                const style = getComputedStyle(header);
-                let bg = style.backgroundColor;
-                // If background is transparent, fallback to default
-                if (!bg || bg === "transparent") {
-                    bg = window.matchMedia("(prefers-color-scheme: dark)")
-                        .matches
-                        ? "#1e2028"
-                        : "#ffffff";
-                }
-                document
-                    .querySelector('meta[name="theme-color"]')
-                    .setAttribute("content", bg);
+        function updateThemeColor() {
+            // Get computed header background color
+            const header = document.querySelector("header");
+            const style = getComputedStyle(header);
+            let bg = style.backgroundColor;
+            // If background is transparent, fallback to default
+            if (!bg || bg === "transparent") {
+                bg = window.matchMedia("(prefers-color-scheme: dark)")
+                    .matches
+                    ? "#1e2028"
+                    : "#ffffff";
             }
-            updateThemeColor();
-            window
-                .matchMedia("(prefers-color-scheme: dark)")
-                .addEventListener("change", updateThemeColor);
+            document
+                .querySelector('meta[name="theme-color"]')
+                .setAttribute("content", bg);
+        }
+        updateThemeColor();
+        window
+            .matchMedia("(prefers-color-scheme: dark)")
+            .addEventListener("change", updateThemeColor);
 
-            // Preview carousel logic
-            const previewImages = [
-                "https://raw.githubusercontent.com/Semmelstulle/Peawell-iOS/main/Resources/PreviewMain.PNG",
-                "https://raw.githubusercontent.com/Semmelstulle/Peawell-iOS/main/Resources/PreviewMeds.PNG",
-                "https://raw.githubusercontent.com/Semmelstulle/Peawell-iOS/main/Resources/PreviewMood.PNG",
-                "https://raw.githubusercontent.com/Semmelstulle/Peawell-iOS/main/Resources/PreviewSettings.PNG",
-            ];
-            let currentPreview = 0;
-            function showPreview(idx) {
-                const img = document.getElementById("preview-carousel-img");
-                img.src = previewImages[idx];
-                img.alt = "App Preview Screenshot " + (idx + 1);
-            }
-            document.getElementById("preview-carousel-prev").onclick =
-                function () {
-                    currentPreview =
-                        (currentPreview - 1 + previewImages.length) %
-                        previewImages.length;
-                    showPreview(currentPreview);
-                };
-            document.getElementById("preview-carousel-next").onclick =
-                function () {
-                    currentPreview =
-                        (currentPreview + 1) % previewImages.length;
-                    showPreview(currentPreview);
-                };
-            showPreview(currentPreview);
-            // Update preview-title, features-title, and feature list on language change
-            const origSetLanguage = setLanguage;
-            setLanguage = function (lang) {
-                origSetLanguage(lang);
-                document.getElementById("preview-title").textContent =
-                    translations[lang]["preview-title"];
-                document.getElementById("features-title").textContent =
-                    translations[lang]["features-title"];
-                for (let i = 1; i <= 5; i++) {
-                    document.getElementById("feature" + i).textContent =
-                        translations[lang]["feature" + i];
-                }
+        // Preview carousel logic
+        const previewImages = [
+            "./Resources/PreviewMain.PNG",
+            "./Resources/PreviewMeds.PNG",
+            "./Resources/PreviewMood.PNG",
+            "./Resources/PreviewSettings.PNG",
+        ];
+        let currentPreview = 0;
+        function showPreview(idx) {
+            const img = document.getElementById("preview-carousel-img");
+            img.src = previewImages[idx];
+            img.alt = "App Preview Screenshot " + (idx + 1);
+        }
+        document.getElementById("preview-carousel-prev").onclick =
+            function () {
+                currentPreview =
+                    (currentPreview - 1 + previewImages.length) %
+                    previewImages.length;
+                showPreview(currentPreview);
             };
-        </script>
-    </body>
+        document.getElementById("preview-carousel-next").onclick =
+            function () {
+                currentPreview =
+                    (currentPreview + 1) % previewImages.length;
+                showPreview(currentPreview);
+            };
+        showPreview(currentPreview);
+        // Update preview-title, features-title, and feature list on language change
+        const origSetLanguage = setLanguage;
+        setLanguage = function (lang) {
+            origSetLanguage(lang);
+            document.getElementById("preview-title").textContent =
+                translations[lang]["preview-title"];
+            document.getElementById("features-title").textContent =
+                translations[lang]["features-title"];
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById("feature" + i).textContent =
+                    translations[lang]["feature" + i];
+            }
+        };
+    </script>
+</body>
 </html>
